@@ -1,3 +1,5 @@
+
+
 import fetch from "node-fetch"
 import yts from 'yt-search'
 import axios from "axios"
@@ -57,7 +59,7 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
     // Audio command handling
     if (['play', 'yta', 'ytmp3', 'playaudio'].includes(command)) {
       try {
-        const api = await (await fetch(`https://api.vreden.my.id/api/ytmp3?url=${url}`)).json()
+        const api = await (await fetch(`https://api.vreden.my.id/api/v1/download/youtube/audio?url=${url}&quality=128`)).json()
         const result = api.result.download.url
 
         if (!result) throw new Error('⚠ The audio link was not generated properly.')
@@ -83,7 +85,7 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
     // Video command handling
     else if (['play2', 'ytv', 'ytmp4', 'mp4'].includes(command)) {
       try {
-        const response = await fetch(`https://api.neoxr.eu/api/youtube?url=${url}&type=video&quality=480p&apikey=GataDios`)
+        const response = await fetch(`https://api.vreden.my.id/api/v1/download/youtube/video?url=${url}&quality=360`)
         const json = await response.json()
         await conn.sendFile(m.chat, json.data.url, json.title + '.mp4', title, m)
       } catch (e) {
